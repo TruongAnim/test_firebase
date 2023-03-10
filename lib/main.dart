@@ -93,6 +93,21 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void addData() {
+    var myRef = firebase.ref("second");
+    ["Apple", "Orange", "Banana"].forEach((element) {
+      myRef.push().set(element);
+    });
+  }
+
+  void getData() {
+    var myRef = firebase.ref("second");
+    Stream<DatabaseEvent> stream = myRef.onValue;
+    stream.listen((event) {
+      print(event.snapshot.value);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -140,6 +155,16 @@ class _MyHomePageState extends State<MyHomePage> {
               data,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            ElevatedButton(
+                onPressed: () {
+                  addData();
+                },
+                child: Text("Add data")),
+            ElevatedButton(
+                onPressed: () {
+                  getData();
+                },
+                child: Text("Get data"))
           ],
         ),
       ),

@@ -8,4 +8,5 @@
 // B7: Thêm   firebase_database firebase_core firebase_core_platform_interface
 //     Nhớ update lên version cao nhất
 // B8: Nhớ init app:   WidgetsFlutterBinding.ensureInitialized(); await Firebase.initializeApp();
+// B9: Nếu chọn server không phải ở mỹ thì phải config: google-services->project_info: "firebase_url": "https://testfirebase-46448-default-rtdb.asia-southeast1.firebasedatabase.app",
 // B9: Check trạng thái đọc ghi của firebase là dùng oke.
