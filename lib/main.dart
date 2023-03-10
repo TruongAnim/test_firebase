@@ -104,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-              margin: EdgeInsets.all(20),
+              margin: const EdgeInsets.all(20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -117,14 +117,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       },
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 50,
                   ),
                   ElevatedButton(
                       onPressed: () {
                         update();
                       },
-                      child: Text("Update"))
+                      child: const Text("Update"))
                 ],
               ),
             ),
@@ -132,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   readOnce();
                 },
-                child: Text("Read once")),
+                child: const Text("Read once")),
             const Text(
               'Data',
             ),
