@@ -42,24 +42,54 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  var firebase = FirebaseDatabase.instance;
+  TextEditingController inputController = TextEditingController();
+  String input = "";
+  String data = "null";
 
   @override
   void initState() {
     super.initState();
+    realtime();
   }
 
-  void _incrementCounter() {
-    var firebase = FirebaseDatabase.instance;
-    var myRef = firebase.ref("hello2");
+  void realtime() {
+    var myRef = firebase.ref("parent");
+    Stream<DatabaseEvent> stream = myRef.onValue;
+    stream.listen((DatabaseEvent event) {
+      print('Event Type: ${event.type}'); // DatabaseEventType.value;
+      print('Snapshot: ${event.snapshot}'); // DataSnapshot
+      setState(() {
+        data = event.snapshot.value.toString();
+      });
+    });
+  }
 
-    myRef
-        .push()
-        .set(SV(name: "hop", birthyear: 2000).toMap())
-        .whenComplete(() => print("done"));
-    print("init");
-    setState(() {
-      _counter++;
+  void recreate() {
+    var myRef = firebase.ref("parent");
+    myRef.set("child").whenComplete(() {
+      setState(() {
+        data = "child";
+      });
+    });
+  }
+
+  void readOnce() {
+    var myRef = firebase.ref("parent");
+    myRef.once().then((value) {
+      setState(() {
+        data = value.snapshot.value.toString();
+        print("read database: $data");
+      });
+    });
+  }
+
+  void update() {
+    var myRef = firebase.ref("parent");
+    myRef.set(input).whenComplete(() {
+      setState(() {
+        print("update new value $input");
+      });
     });
   }
 
@@ -73,18 +103,48 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Container(
+              margin: EdgeInsets.all(20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: TextField(
+                      controller: inputController,
+                      onChanged: (value) {
+                        input = value;
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 50,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        update();
+                      },
+                      child: Text("Update"))
+                ],
+              ),
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  readOnce();
+                },
+                child: Text("Read once")),
             const Text(
-              'You have pushed the button this many times:',
+              'Data',
             ),
             Text(
-              '$_counter',
+              data,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: recreate,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
