@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "142984685710",
+    "project_id": "testfirebase-46448",
+    "firebase_url": "https://testfirebase-46448-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "storage_bucket": "testfirebase-46448.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:142984685710:android:23dfe0e28f42b1e38341df",
+        "android_client_info": {
+          "package_name": "com.truonganim.test_firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "142984685710-dsg4b5j7jb7cinb0ql6clqs9ds7klu5v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLMwWUuGmRihQSDEpCXbPrU5X5kEgUqdo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "142984685710-dsg4b5j7jb7cinb0ql6clqs9ds7klu5v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
